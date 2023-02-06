@@ -1,4 +1,5 @@
 const grid = document.querySelector('.grid');
+const scoreDisplay = document.querySelector('#score');
 const blockWidth = 100;
 const blockHeight = 20;
 const ballDiameter = 20;
@@ -75,7 +76,7 @@ function moveUser(e) {
             }
             break;
         case 'ArrowRight':
-            if (currentPosition[0] < boardWith - blockWidth) {
+            if (currentPosition[0] < boardWidth - blockWidth) {
                 currentPosition[0] += 10;                    
                 drawUser();
             }
@@ -112,6 +113,12 @@ function checkForCollision() {
         ballCurrentPosition[0] <= 0
         ) {
             changeDirection();
+    }
+
+    if (ballCurrentPosition[1] <= 0) {
+        clearInterval(timerId);
+        scoreDisplay.innerHTML = 'You lose';
+        document.removeEventListener('keydown', moveUser);
     }
 }
 
